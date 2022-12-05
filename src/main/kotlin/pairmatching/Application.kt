@@ -1,5 +1,12 @@
 package pairmatching
 
 fun main() {
-    // TODO: 프로그램 구현
+    runMatchingProgram()
+}
+
+private fun runMatchingProgram() {
+    /*while(true) {
+
+    }*/
+    PrintForm().printFunctionList()
 }
