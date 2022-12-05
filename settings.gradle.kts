@@ -1,1 +1,1 @@
-rootProject.name = "kotlin-bridge"
+rootProject.name = "kotlin-pairmatching"
