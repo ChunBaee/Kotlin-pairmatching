@@ -15,4 +15,7 @@ class UserInput {
         return functionInput
     }
 
+    fun userInputProcessLevelClass() {
+        PrintForm().printNoticeInputProcessLevelClass()
+    }
 }
