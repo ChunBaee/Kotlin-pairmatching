@@ -17,10 +17,10 @@ class Regex {
 
     fun checkCourseLevelClassRegex(userInput : String) : Boolean {
         return try {
-            //체크로직
+            divideCourseLevelMission(userInput)
             true
         } catch (exception : IllegalArgumentException) {
-            //에러 출력
+            println(exception.message)
             false
         }
     }
@@ -31,5 +31,24 @@ class Regex {
 
     private fun checkFunctionSelectInputIsRight(userInput: String) {
         if(!Pattern.matches("^[1-3]*$", userInput) && userInput != "Q") throw IllegalArgumentException("REG")
+    }
+
+    private fun divideCourseLevelMission(userInput: String) {
+        val totalList = userInput.split(",").filter { it != "" }
+        checkIsItHaveRightSize(totalList)
+        checkIsRightCourse(totalList[0])
+        checkIsRightLevelAndClass(totalList[1], totalList[2])
+    }
+
+    private fun checkIsItHaveRightSize(totalList : List<String>) {
+        if(totalList.size != 3) throw IllegalArgumentException()
+    }
+
+    private fun checkIsRightCourse(inputCourse : String) {
+        if(!Course.values().any { it.returnCourseName() == inputCourse }) throw IllegalArgumentException("COU")
+    }
+
+    private fun checkIsRightLevelAndClass(inputLevel : String, inputClass : String) {
+        if(!Class.values().any{ it.returnClassName() == inputClass.trim() && it.returnLevel() == inputLevel.trim()}) throw IllegalArgumentException("CLA")
     }
 }
