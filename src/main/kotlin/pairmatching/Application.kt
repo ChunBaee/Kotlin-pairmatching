@@ -17,7 +17,7 @@ private fun functionInputBranchProcess(userFunctionInput : String) : Any {
     if(userFunctionInput != Functions.FUN4.returnNumber()) {
         functionInputBranchNotQuitProcess(userFunctionInput)
     }
-    return "Q"
+    return userFunctionInput
 }
 
 private fun functionInputBranchNotQuitProcess(userFunctionInput: String) {
