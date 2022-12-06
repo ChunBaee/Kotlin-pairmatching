@@ -16,6 +16,12 @@ class UserInput {
     }
 
     fun userInputProcessLevelClass() {
-        PrintForm().printNoticeInputProcessLevelClass()
+        var isCorrect = false
+        var userInput = ""
+        while(!isCorrect) {
+            PrintForm().printNoticeInputProcessLevelClass()
+            userInput = Console.readLine()
+            isCorrect = Regex().checkCourseLevelClassRegex(userInput)
+        }
     }
 }

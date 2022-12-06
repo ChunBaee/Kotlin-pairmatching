@@ -15,6 +15,16 @@ class Regex {
         }
     }
 
+    fun checkCourseLevelClassRegex(userInput : String) : Boolean {
+        return try {
+            //체크로직
+            true
+        } catch (exception : IllegalArgumentException) {
+            //에러 출력
+            false
+        }
+    }
+
     private fun checkFunctionSelectInputLength(userInput : String) {
         if(userInput.length != 1) throw IllegalArgumentException("LEN")
     }
