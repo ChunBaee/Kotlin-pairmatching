@@ -5,25 +5,29 @@ fun main() {
 }
 
 private fun runMatchingProgram() {
-    val userFunctionInput = UserInput().userSelectFunction()
-    functionInputBranchProcess(userFunctionInput)
+    while(true) {
+        val userFunctionInput = UserInput().userSelectFunction()
+        if (functionInputBranchProcess(userFunctionInput) == "Q") {
+            break
+        }
+    }
 }
 
-private fun functionInputBranchProcess(userFunctionInput : String) {
-    if(userFunctionInput == Functions.FUN4.returnNumber()) {
-        //종료
+private fun functionInputBranchProcess(userFunctionInput : String) : Any {
+    if(userFunctionInput != Functions.FUN4.returnNumber()) {
+        functionInputBranchNotQuitProcess(userFunctionInput)
     }
-    functionInputBranchNotQuitProcess(userFunctionInput)
+    return "Q"
 }
 
 private fun functionInputBranchNotQuitProcess(userFunctionInput: String) {
     if(userFunctionInput == Functions.FUN1.returnNumber()) {
         PrintForm().printProcessAndMission()
-        UserInput().userInputProcessLevelClass()
+        UserInput().userInputProcessLevelClass(Functions.FUN1.returnNumber())
     }
     if(userFunctionInput == Functions.FUN2.returnNumber()) {
         PrintForm().printProcessAndMission()
-        UserInput().userInputProcessLevelClass()
+        UserInput().userInputProcessLevelClass(Functions.FUN2.returnNumber())
     }
     if(userFunctionInput == Functions.FUN3.returnNumber()) {
         //초기화
