@@ -1,5 +1,7 @@
 package pairmatching
 
+import kotlin.Pair
+
 class PrintForm {
 
     fun printFunctionList() {
@@ -60,6 +62,13 @@ class PrintForm {
     fun printNoticeInputProcessLevelClass() {
         println("과정, 레벨, 미션을 선택하세요.")
         println("ex) 백엔드, 레벨1, 자동차경주")
+    }
+
+    fun printPairMatchingResult (pairList : MutableList<MutableList<String>>) {
+        println("페어 매칭 결과입니다.")
+        for(pair in pairList) {
+            println(pair.joinToString(" : "))
+        }
     }
 
 }

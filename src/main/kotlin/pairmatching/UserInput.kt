@@ -28,8 +28,7 @@ class UserInput {
 
     private fun divideIsItMatchingOrWatch(type : String, optionList : List<String>) {
         if(type == Functions.FUN1.returnNumber()) {
-            println("PAIR")
-            PairLogic(optionList).shufflePairList()
+            PairLogic(optionList).returnPairList()
         }
         if(type == Functions.FUN2.returnNumber()) {
             //조회 로직

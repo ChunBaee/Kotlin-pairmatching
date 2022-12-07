@@ -5,25 +5,48 @@ import camp.nextstep.edu.missionutils.Randoms
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
+import kotlin.Pair
 
 
 class PairLogic(private val optionsList: List<String>) {
 
-    fun shufflePairList() {
-        var crewList = mutableListOf<String>()
+    fun returnPairList() {
+        val crewListPath = File(checkIsItBackOrFrontAndReturnPath(optionsList[0]))
+        translateListToPair(getCrewListFromFile(crewListPath))
+    }
 
-        val crewListPath = File(
-            if (Course.FRONTEND.returnCourseName() == optionsList[0]) {
-                Course.FRONTEND.returnCourseFilePath()
-            } else {
-                Course.BACKEND.returnCourseFilePath()
-            }
-        )
+    private fun checkIsItBackOrFrontAndReturnPath(course : String) : String{
+        return if (Course.FRONTEND.returnCourseName() == course) {
+            Course.FRONTEND.returnCourseFilePath()
+        } else {
+            Course.BACKEND.returnCourseFilePath()
+        }
+    }
+
+    private fun getCrewListFromFile(crewListPath : File) : List<String> {
+        var mCrewList = mutableListOf<String>()
         val bufferReader = BufferedReader(FileReader(crewListPath.absolutePath))
         var crewName: String?
         while (bufferReader.readLine().also { crewName = it } != null) {
-            crewList.add(crewName!!)
+            mCrewList.add(crewName!!)
         }
         bufferReader.close()
+        return Randoms.shuffle(mCrewList)
+    }
+
+    private fun translateListToPair(crewList : List<String>) {
+        val pairList = mutableListOf<MutableList<String>>()
+        if(crewList.size % 2 == 0) {
+            for (i in crewList.indices step 2) {
+                pairList.add(mutableListOf(crewList[i], crewList[i + 1]))
+            }
+        }
+        if(crewList.size % 2 == 1) {
+            for(i in 0 until crewList.size - 3 step 2) {
+                pairList.add(mutableListOf(crewList[i], crewList[i + 1]))
+            }
+            pairList.add(mutableListOf(crewList[crewList.size - 3], crewList[crewList.size - 2], crewList[crewList.size - 1]))
+        }
+        PrintForm().printPairMatchingResult(pairList)
     }
 }
