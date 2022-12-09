@@ -22,7 +22,6 @@ class PairLogic(private val optionsList: List<String>) {
         while (true) {
             if(checkIsThereSame(legacyList, notSureList)) {
                 mReturn = PairType(optionsList[0],optionsList[1],optionsList[2],notSureList)
-                println("RETURN LIST: $notSureList" )
                 break
             }
             else if(!checkIsThereSame(legacyList, notSureList) && loop <= 3){
@@ -72,9 +71,6 @@ class PairLogic(private val optionsList: List<String>) {
     }
 
     private fun checkIsThereSame(legacyList: MutableList<MutableList<String>>, newList : MutableList<MutableList<String>>) : Boolean {
-        println(legacyList)
-        println(newList)
-
         val mLegacy = returnSortedList(legacyList)
         val mNew = returnSortedList(newList)
 

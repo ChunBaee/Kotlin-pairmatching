@@ -36,7 +36,8 @@ private fun functionInputBranchNotQuitProcess(userFunctionInput: String) {
 }
 
 private fun resetPairList() {
-
+    mPairList = mutableListOf()
+    PrintForm().printResetPairList()
 }
 
 private fun divideIsItMatchingOrWatch(type: String, optionList: List<String>) {

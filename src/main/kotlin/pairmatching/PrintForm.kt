@@ -76,4 +76,8 @@ class PrintForm {
         println("네 | 아니오")
     }
 
+    fun printResetPairList() {
+        println("초기화 되었습니다.")
+    }
+
 }
