@@ -42,7 +42,14 @@ private fun resetPairList() {
 private fun divideIsItMatchingOrWatch(type: String, optionList: List<String>) {
     if(type == Functions.FUN1.returnNumber() && isThereAlreadyMatchingInfo(optionList)) {
         if(UserInput().userInputWannaRematch()) {
-            println("리매치하기")
+            PairLogic(optionList).returnRematchPairList(mPairList.find { it.targetCourse == optionList[0] && it.targetLevel == optionList[1] && it.targetClass == optionList[2] }!!.pairList).let {
+                if(it.equals("ERROR")) {
+                    println("ERROR")
+                } else {
+                    mPairList.remove(mPairList.find {list -> list.targetCourse == optionList[0] && list.targetLevel == optionList[1] && list.targetClass == optionList[2] })
+                    addToPairList(it as PairType)
+                }
+            }
         } else {
             functionInputBranchNotQuitProcess(Functions.FUN1.returnNumber())
         }
@@ -51,7 +58,6 @@ private fun divideIsItMatchingOrWatch(type: String, optionList: List<String>) {
         addToPairList(PairLogic(optionList).returnPairList())
     }
     if (type == Functions.FUN2.returnNumber()) {
-        println(mPairList)
         mPairList.find { it.targetCourse == optionList[0] && it.targetLevel == optionList[1] && it.targetClass == optionList[2] }?.pairList?.let {
             PrintForm().printPairMatchingResult(
                 it

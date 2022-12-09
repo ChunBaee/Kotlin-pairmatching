@@ -14,6 +14,27 @@ class PairLogic(private val optionsList: List<String>) {
         return PairType(optionsList[0],optionsList[1],optionsList[2],translateListToPair(getCrewListFromFile(crewListPath)))
     }
 
+    fun returnRematchPairList(legacyList : MutableList<MutableList<String>>) : Any{
+        val crewListPath = File(checkIsItBackOrFrontAndReturnPath(optionsList[0]))
+        var notSureList = translateListToPair(getCrewListFromFile(crewListPath))
+        var loop = 1
+        var mReturn : Any
+        while (true) {
+            if(checkIsThereSame(legacyList, notSureList)) {
+                mReturn = PairType(optionsList[0],optionsList[1],optionsList[2],notSureList)
+                println("RETURN LIST: $notSureList" )
+                break
+            }
+            else if(!checkIsThereSame(legacyList, notSureList) && loop <= 3){
+                notSureList = translateListToPair(getCrewListFromFile(crewListPath))
+            } else if(!checkIsThereSame(legacyList, notSureList) && loop > 3) {
+                mReturn = "ERROR"
+                break
+            }
+            loop++
+        }
+        return mReturn
+    }
     private fun checkIsItBackOrFrontAndReturnPath(course : String) : String{
         return if (Course.FRONTEND.returnCourseName() == course) {
             Course.FRONTEND.returnCourseFilePath()
@@ -48,5 +69,22 @@ class PairLogic(private val optionsList: List<String>) {
         }
         PrintForm().printPairMatchingResult(pairList)
         return pairList
+    }
+
+    private fun checkIsThereSame(legacyList: MutableList<MutableList<String>>, newList : MutableList<MutableList<String>>) : Boolean {
+        println(legacyList)
+        println(newList)
+
+        val mLegacy = returnSortedList(legacyList)
+        val mNew = returnSortedList(newList)
+
+        return mNew.none { mLegacy.contains(it) }
+    }
+
+    private fun returnSortedList(list : MutableList<MutableList<String>>) : MutableList<MutableList<String>> {
+        for(i in list.indices) {
+            list[i] = list[i].sorted() as MutableList<String>
+        }
+        return list
     }
 }
