@@ -25,6 +25,15 @@ class Regex {
         }
     }
 
+    fun checkUserWannaRematchRegex(userInput: String) : Boolean {
+        return try {
+            checkWannaRematch(userInput)
+            true
+        } catch (exception : IllegalArgumentException) {
+            println(exception.message)
+            false
+        }
+    }
     private fun checkFunctionSelectInputLength(userInput : String) {
         if(userInput.length != 1) throw IllegalArgumentException("LEN")
     }
@@ -50,5 +59,9 @@ class Regex {
 
     private fun checkIsRightLevelAndClass(inputLevel : String, inputClass : String) {
         if(!Class.values().any{ it.returnClassName() == inputClass.trim() && it.returnLevel() == inputLevel.trim()}) throw IllegalArgumentException("CLA")
+    }
+
+    private fun checkWannaRematch(inputWannaRematch : String) {
+        if(inputWannaRematch != "네" && inputWannaRematch != "아니오") throw IllegalArgumentException()
     }
 }

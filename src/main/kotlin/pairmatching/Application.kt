@@ -16,33 +16,39 @@ private fun runMatchingProgram() {
 }
 
 private fun functionInputBranchProcess(userFunctionInput: String): Any {
-    if (userFunctionInput != Functions.FUN4.returnNumber()) {
+    if (userFunctionInput == Functions.FUN1.returnNumber() || userFunctionInput == Functions.FUN2.returnNumber()) {
+        PrintForm().printProcessAndMission()
         functionInputBranchNotQuitProcess(userFunctionInput)
+    }
+    if(userFunctionInput == Functions.FUN3.returnNumber()) {
+        resetPairList()
     }
     return userFunctionInput
 }
 
 private fun functionInputBranchNotQuitProcess(userFunctionInput: String) {
     if (userFunctionInput == Functions.FUN1.returnNumber()) {
-        PrintForm().printProcessAndMission()
         divideIsItMatchingOrWatch(Functions.FUN1.returnNumber(), UserInput().userInputProcessLevelClass())
     }
     if (userFunctionInput == Functions.FUN2.returnNumber()) {
-        PrintForm().printProcessAndMission()
         divideIsItMatchingOrWatch(Functions.FUN2.returnNumber(), UserInput().userInputProcessLevelClass())
     }
-    if (userFunctionInput == Functions.FUN3.returnNumber()) {
-        //초기화
-    }
+}
+
+private fun resetPairList() {
 
 }
 
 private fun divideIsItMatchingOrWatch(type: String, optionList: List<String>) {
+    if(type == Functions.FUN1.returnNumber() && isThereAlreadyMatchingInfo(optionList)) {
+        if(UserInput().userInputWannaRematch()) {
+            println("리매치하기")
+        } else {
+            functionInputBranchNotQuitProcess(Functions.FUN1.returnNumber())
+        }
+    }
     if (type == Functions.FUN1.returnNumber() && !isThereAlreadyMatchingInfo(optionList)) {
         addToPairList(PairLogic(optionList).returnPairList())
-    }
-    if(type == Functions.FUN1.returnNumber() && isThereAlreadyMatchingInfo(optionList)) {
-        PrintForm().
     }
     if (type == Functions.FUN2.returnNumber()) {
         println(mPairList)
