@@ -20,7 +20,7 @@ private fun functionInputBranchProcess(userFunctionInput: String): Any {
         PrintForm().printProcessAndMission()
         functionInputBranchNotQuitProcess(userFunctionInput)
     }
-    if(userFunctionInput == Functions.FUN3.returnNumber()) {
+    if (userFunctionInput == Functions.FUN3.returnNumber()) {
         resetPairList()
     }
     return userFunctionInput
@@ -41,36 +41,55 @@ private fun resetPairList() {
 }
 
 private fun divideIsItMatchingOrWatch(type: String, optionList: List<String>) {
-    if(type == Functions.FUN1.returnNumber() && isThereAlreadyMatchingInfo(optionList)) {
-        if(UserInput().userInputWannaRematch()) {
-            PairLogic(optionList).returnRematchPairList(mPairList.find { it.targetCourse == optionList[0] && it.targetLevel == optionList[1] && it.targetClass == optionList[2] }!!.pairList).let {
-                if(it.equals("ERROR")) {
-                    println("ERROR")
-                } else {
-                    mPairList.remove(mPairList.find {list -> list.targetCourse == optionList[0] && list.targetLevel == optionList[1] && list.targetClass == optionList[2] })
-                    addToPairList(it as PairType)
-                }
-            }
-        } else {
-            functionInputBranchNotQuitProcess(Functions.FUN1.returnNumber())
-        }
-    }
-    if (type == Functions.FUN1.returnNumber() && !isThereAlreadyMatchingInfo(optionList)) {
-        addToPairList(PairLogic(optionList).returnPairList())
+    if (type == Functions.FUN1.returnNumber()) {
+        checkAndDivideIsAlreadyMatched(optionList)
     }
     if (type == Functions.FUN2.returnNumber()) {
-        mPairList.find { it.targetCourse == optionList[0] && it.targetLevel == optionList[1] && it.targetClass == optionList[2] }?.pairList?.let {
-            PrintForm().printPairMatchingResult(
-                it
-            )
-        }
+        showPairListLogic(optionList)
     }
 }
 
-private fun addToPairList(mPair : PairType) {
+private fun addToPairList(mPair: PairType) {
     mPairList.add(mPair)
 }
 
-private fun isThereAlreadyMatchingInfo(optionList: List<String>) : Boolean {
-    return mPairList.any { it.targetCourse == optionList[0] && it.targetLevel == optionList[1] && it.targetClass == optionList[2]}
+private fun isThereAlreadyMatchingInfo(optionList: List<String>): Boolean {
+    return mPairList.any { it.targetCourse == optionList[0] && it.targetLevel == optionList[1] && it.targetClass == optionList[2] }
+}
+
+private fun rematchPair(optionList: List<String>) {
+    PairLogic(optionList).returnRematchPairList(mPairList.find { it.targetCourse == optionList[0] && it.targetLevel == optionList[1] && it.targetClass == optionList[2] }!!.pairList)
+        .let {
+            if (it == "ERROR") {
+                println("ERROR")
+            } else {
+                mPairList.remove(mPairList.find { list -> list.targetCourse == optionList[0] && list.targetLevel == optionList[1] && list.targetClass == optionList[2] })
+                addToPairList(it as PairType)
+            }
+        }
+}
+
+private fun showPairListLogic(optionList: List<String>) {
+    mPairList.find { it.targetCourse == optionList[0] && it.targetLevel == optionList[1] && it.targetClass == optionList[2] }?.pairList?.let {
+        PrintForm().printPairMatchingResult(
+            it
+        )
+    }
+}
+
+private fun checkAndDivideIsAlreadyMatched(optionList: List<String>) {
+    if (isThereAlreadyMatchingInfo(optionList)) {
+        setRematchLogic(optionList)
+    }
+    if (!isThereAlreadyMatchingInfo(optionList)) {
+        addToPairList(PairLogic(optionList).returnPairList())
+    }
+}
+
+private fun setRematchLogic(optionList: List<String>) {
+    if (UserInput().userInputWannaRematch()) {
+        rematchPair(optionList)
+    } else {
+        functionInputBranchNotQuitProcess(Functions.FUN1.returnNumber())
+    }
 }
