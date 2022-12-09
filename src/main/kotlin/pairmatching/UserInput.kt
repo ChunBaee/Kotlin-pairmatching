@@ -15,7 +15,7 @@ class UserInput {
         return functionInput
     }
 
-    fun userInputProcessLevelClass(type : String) {
+    fun userInputProcessLevelClass() : List<String>{
         var isCorrect = false
         var userInput = ""
         while(!isCorrect) {
@@ -23,15 +23,6 @@ class UserInput {
             userInput = Console.readLine()
             isCorrect = Regex().checkCourseLevelClassRegex(userInput)
         }
-        divideIsItMatchingOrWatch(type, userInput.trim().split(","))
-    }
-
-    private fun divideIsItMatchingOrWatch(type : String, optionList : List<String>) {
-        if(type == Functions.FUN1.returnNumber()) {
-            PairLogic(optionList).returnPairList()
-        }
-        if(type == Functions.FUN2.returnNumber()) {
-            //조회 로직
-        }
+        return userInput.trim().split(",")
     }
 }

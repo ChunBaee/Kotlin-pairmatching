@@ -5,14 +5,13 @@ import camp.nextstep.edu.missionutils.Randoms
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
-import kotlin.Pair
 
 
 class PairLogic(private val optionsList: List<String>) {
 
-    fun returnPairList() {
+    fun returnPairList() : PairType {
         val crewListPath = File(checkIsItBackOrFrontAndReturnPath(optionsList[0]))
-        translateListToPair(getCrewListFromFile(crewListPath))
+        return PairType(optionsList[0],optionsList[1],optionsList[2],translateListToPair(getCrewListFromFile(crewListPath)))
     }
 
     private fun checkIsItBackOrFrontAndReturnPath(course : String) : String{
@@ -34,7 +33,7 @@ class PairLogic(private val optionsList: List<String>) {
         return Randoms.shuffle(mCrewList)
     }
 
-    private fun translateListToPair(crewList : List<String>) {
+    private fun translateListToPair(crewList : List<String>) : MutableList<MutableList<String>> {
         val pairList = mutableListOf<MutableList<String>>()
         if(crewList.size % 2 == 0) {
             for (i in crewList.indices step 2) {
@@ -48,5 +47,6 @@ class PairLogic(private val optionsList: List<String>) {
             pairList.add(mutableListOf(crewList[crewList.size - 3], crewList[crewList.size - 2], crewList[crewList.size - 1]))
         }
         PrintForm().printPairMatchingResult(pairList)
+        return pairList
     }
 }

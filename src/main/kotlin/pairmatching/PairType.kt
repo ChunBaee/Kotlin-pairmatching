@@ -1,10 +1,8 @@
 package pairmatching
 
-import kotlin.Pair
-
-data class Pair(
+data class PairType(
     val targetCourse : String,
     val targetLevel : String,
     val targetClass : String,
-    var pairList : MutableList<Pair<String, String>>
+    var pairList : MutableList<MutableList<String>>
 )
