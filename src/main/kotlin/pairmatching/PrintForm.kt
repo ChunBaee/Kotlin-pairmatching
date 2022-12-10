@@ -80,4 +80,8 @@ class PrintForm {
         println("초기화 되었습니다.")
     }
 
+    fun printErrors(error: Error) {
+        println("[ERROR] ${error.returnErrorExplain()}")
+    }
+
 }

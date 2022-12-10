@@ -63,7 +63,7 @@ private fun rematchPair(optionList: List<String>) {
     PairLogic(optionList).returnRematchPairList(mPairList.find { it.targetCourse == optionList[0] && it.targetLevel == optionList[1] && it.targetClass == optionList[2] }!!.pairList)
         .let {
             if (it == "ERROR") {
-                println("ERROR2")
+                println("ERROR") //:TODO ERROR 만들기
             } else {
                 mPairList.remove(mPairList.find { list -> list.targetCourse == optionList[0] && list.targetLevel == optionList[1] && list.targetClass == optionList[2] })
                 addToPairList(it as PairType)
